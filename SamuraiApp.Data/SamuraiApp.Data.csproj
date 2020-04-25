@@ -1,10 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+	  <!--<TargetFramework>netstandard2.0</TargetFramework>-->
+	  
+	  <!--multi target in order to use EF Core power tools designer-->
+    <TargetFrameworks>netcoreapp3.0;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
+	  <!--design is for EF core power tools to work-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+	  
+	  
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
   </ItemGroup>
 

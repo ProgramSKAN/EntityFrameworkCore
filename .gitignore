@@ -1,0 +1,10 @@
+ConsoleApp\bin
+ConsoleApp\obj
+Samurai.Domain\bin
+Samurai.Domain\obj
+SamuraiApp.Data\bin
+SamuraiApp.Data\obj
+SamuraiApp.Domain\bin
+SamuraiApp.Domain\obj
+Tests\bin
+.vs
