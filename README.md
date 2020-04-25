@@ -1,21 +1,27 @@
-# EntityFrameworkCore
+1:use Loggerfactor instead of SQL profiler
+using Microsoft.Extensions.Logging;
+nuget>  Microsoft.Extensions.Logging.Console
 
-EF7>Ninja
+2:understand EFCore sql script
+https://www.brentozar.com/archive/2017/05/case-entity-framework-cores-odd-sql/
 
-EFCore>Samurai
+3:
+## ADD
+DBSet:
+_context.Samurais.Add(samurai);
+_context.Samurais.AddRange(samuraiList);
+DBContext:
+_context.Add(samurai);
+_context.AddRange(samurai,battle);
+## UPDATE
+_context.Samurais.Update(samurai);
+_context.Samurais.UpdateRange(samuraiList);
 
-## 1:
+_context.Update(samurai);
+_context.UpdateRange(samurai,battle);
+## DELETE
+_context.Samurais.Remove(samurai);
+_context.Samurais.RemoveRange(samuraiList);
 
-create domain classes Samurai,Quote,Clan
-
-## 2:Nuget Package
-
-microsoft.efcore.sqlserver:3.1.0> installing this will inturn install efcore
-
-efcore.relational
-
-efcore
-
-run> install-package Microsoft.EntityFrameworkCore.SqlServer
-
-## 3:create samuraicontext
+_context.Remove(samurai);
+_context.RemoveRange(samurai,battle);
