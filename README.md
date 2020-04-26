@@ -18,15 +18,22 @@ run> add-migration NewSprocs -Context SamuraiContext
 ------------------------------------------------------------
 ## Using EF Core with ASP.NET Core
 1.add reference of API project to data and domain project
+
 2.add new API Controller with actions, using ENTITY FRAMEWORK
 Model class> samurai
 Data context class> samurai context
+
 3.change in csproj from Microsoft.EntityFrameworkCore.Sqlite to Microsoft.EntityFrameworkCore.SqlServer
+
 4.add "Microsoft.EntityFrameworkCore.Database.command": "Information",connectionstrings in appsettings
+
 5.AddDBContext in dependency injection
+
 6.add constructor in Samuraicontext because whenerver program sees samuraicontext at samuraicontroller then it will ask DI AddDBContext to instantiate samuraicontext and use it.but samuraicontext has to constructor.so add one and keep it no tracking.
 no tracking since there is no tracking between one request and another in api.so tracking is a waste of resources.so keep notracking
+
 7.ramove logging code in samuraicontext since ASP.NETCore API has inbuilt logger
+
 8.REST CLIENT CALLS
 http://localhost:5000/api/Samurais
 
