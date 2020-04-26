@@ -445,5 +445,50 @@ namespace ConsoleApp
             var clan = _context.Clans.Find(3);
             var samuraiForClan = _context.Samurais.Where(s => s.Clan.Id == 3).ToList();
         }
+
+        private static void QuerySamuraiBattleStats()//VIEW
+        {
+            var stats = _context.SamuraiBattleStats.ToList();
+            var firstStat = _context.SamuraiBattleStats.FirstOrDefault();
+            var jimmyStat = _context.SamuraiBattleStats.Where(s => s.Name == "jimmy").FirstOrDefault();
+
+            //var findone = _context.SamuraiBattleStats.Find(2);//runtime error>because there is no key for this entity
+        }
+
+        private static void QueryUsingRawSql()
+        {
+            var samurais = _context.Samurais.FromSqlRaw("Select * from Samurais").ToList();
+            //ERROR//var samurais = _context.Samurais.FromSqlRaw("Select name from Samurais").ToList();//Due to> it must return data for all properties of entity type
+            //Query cannot contain related data//only query entities and keyless entities known by the DBContext can be queried
+
+            var samurais1 = _context.Samurais.FromSqlRaw("Select Id,Name,ClanId from Samurais").Include(s=>s.Quotes).ToList();
+
+            string name = "kikuchyo";
+            var samurais2 = _context.Samurais.FromSqlInterpolated($"SELECT * FROM Samurais WHERE Name={name}").ToList();
+            //dont use this//it causes sql inqection//var samurais2 = _context.Samurais.FromSqlRaw($"SELECT * FROM Samurais WHERE Name='{name}'").ToList();
+
+        }
+        private static void DANGERDANGERQueryUsingRawSqlWithInterpolation()
+        {
+            //never use this
+            //it causes SQL Injection
+            string name = "kikuchyo";
+            var samurais = _context.Samurais.FromSqlRaw($"SELECT * FROM Samurais WHERE Name='{name}'").ToList();
+        }
+        private static void QueryUsingFromRawSqlStoredProc()
+        {
+            var text = "Happy";
+            var samurais = _context.Samurais.FromSqlRaw("EXEC dbo.SamuraisWhoSaidAWord {0}", text).ToList();
+        }
+        private static void ExecuteSomeRawSql()
+        {
+            var SamuraiId = 22;
+            //var x = _context.Database.ExecuteSqlRaw("EXEC DeleteQuotesForSamurai {0}", SamuraiId);//it returns a number of rows effected
+
+            SamuraiId = 31;
+             _context.Database.ExecuteSqlInterpolated($"EXEC DeleteQuotesForSamurai {SamuraiId}");
+        }
+
+
     }
 }
